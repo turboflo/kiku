@@ -29,6 +29,14 @@ class _SearchBarState extends State<SearchBar> {
     setState(() => _showCancel = false);
   }
 
+  void _onChange() {
+    if (_controller.text == '') {
+      setState(() => _showCancel = false);
+    } else {
+      setState(() => _showCancel = true);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -44,6 +52,7 @@ class _SearchBarState extends State<SearchBar> {
             ),
             maxLines: 1,
             onSubmitted: _onSearch,
+            onChanged: ((_) => _onChange()),
           ),
         ),
         if (_showCancel)

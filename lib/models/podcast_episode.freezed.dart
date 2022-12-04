@@ -24,13 +24,14 @@ mixin _$PodcastEpisode {
   String get name => throw _privateConstructorUsedError;
   int get datePublished => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   String? get language => throw _privateConstructorUsedError;
   List<String>? get genres => throw _privateConstructorUsedError;
   String? get authorName => throw _privateConstructorUsedError;
   String get audioUrl => throw _privateConstructorUsedError;
   int? get seasonNumber => throw _privateConstructorUsedError;
   int? get episodeNumber => throw _privateConstructorUsedError;
+  int get duration => throw _privateConstructorUsedError;
   PodcastSeries get podcastSeries => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,13 +51,14 @@ abstract class $PodcastEpisodeCopyWith<$Res> {
       String name,
       int datePublished,
       String? description,
-      String imageUrl,
+      String? imageUrl,
       String? language,
       List<String>? genres,
       String? authorName,
       String audioUrl,
       int? seasonNumber,
       int? episodeNumber,
+      int duration,
       PodcastSeries podcastSeries});
 
   $PodcastSeriesCopyWith<$Res> get podcastSeries;
@@ -79,13 +81,14 @@ class _$PodcastEpisodeCopyWithImpl<$Res, $Val extends PodcastEpisode>
     Object? name = null,
     Object? datePublished = null,
     Object? description = freezed,
-    Object? imageUrl = null,
+    Object? imageUrl = freezed,
     Object? language = freezed,
     Object? genres = freezed,
     Object? authorName = freezed,
     Object? audioUrl = null,
     Object? seasonNumber = freezed,
     Object? episodeNumber = freezed,
+    Object? duration = null,
     Object? podcastSeries = null,
   }) {
     return _then(_value.copyWith(
@@ -105,10 +108,10 @@ class _$PodcastEpisodeCopyWithImpl<$Res, $Val extends PodcastEpisode>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: null == imageUrl
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -133,6 +136,10 @@ class _$PodcastEpisodeCopyWithImpl<$Res, $Val extends PodcastEpisode>
           ? _value.episodeNumber
           : episodeNumber // ignore: cast_nullable_to_non_nullable
               as int?,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
       podcastSeries: null == podcastSeries
           ? _value.podcastSeries
           : podcastSeries // ignore: cast_nullable_to_non_nullable
@@ -162,13 +169,14 @@ abstract class _$$_PodcastEpisodeCopyWith<$Res>
       String name,
       int datePublished,
       String? description,
-      String imageUrl,
+      String? imageUrl,
       String? language,
       List<String>? genres,
       String? authorName,
       String audioUrl,
       int? seasonNumber,
       int? episodeNumber,
+      int duration,
       PodcastSeries podcastSeries});
 
   @override
@@ -190,13 +198,14 @@ class __$$_PodcastEpisodeCopyWithImpl<$Res>
     Object? name = null,
     Object? datePublished = null,
     Object? description = freezed,
-    Object? imageUrl = null,
+    Object? imageUrl = freezed,
     Object? language = freezed,
     Object? genres = freezed,
     Object? authorName = freezed,
     Object? audioUrl = null,
     Object? seasonNumber = freezed,
     Object? episodeNumber = freezed,
+    Object? duration = null,
     Object? podcastSeries = null,
   }) {
     return _then(_$_PodcastEpisode(
@@ -216,10 +225,10 @@ class __$$_PodcastEpisodeCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: null == imageUrl
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -244,6 +253,10 @@ class __$$_PodcastEpisodeCopyWithImpl<$Res>
           ? _value.episodeNumber
           : episodeNumber // ignore: cast_nullable_to_non_nullable
               as int?,
+      duration: null == duration
+          ? _value.duration
+          : duration // ignore: cast_nullable_to_non_nullable
+              as int,
       podcastSeries: null == podcastSeries
           ? _value.podcastSeries
           : podcastSeries // ignore: cast_nullable_to_non_nullable
@@ -260,13 +273,14 @@ class _$_PodcastEpisode implements _PodcastEpisode {
       required this.name,
       required this.datePublished,
       this.description,
-      required this.imageUrl,
+      this.imageUrl,
       this.language,
       final List<String>? genres,
       this.authorName,
       required this.audioUrl,
       this.seasonNumber,
       this.episodeNumber,
+      required this.duration,
       required this.podcastSeries})
       : _genres = genres;
 
@@ -282,7 +296,7 @@ class _$_PodcastEpisode implements _PodcastEpisode {
   @override
   final String? description;
   @override
-  final String imageUrl;
+  final String? imageUrl;
   @override
   final String? language;
   final List<String>? _genres;
@@ -304,11 +318,13 @@ class _$_PodcastEpisode implements _PodcastEpisode {
   @override
   final int? episodeNumber;
   @override
+  final int duration;
+  @override
   final PodcastSeries podcastSeries;
 
   @override
   String toString() {
-    return 'PodcastEpisode(uuid: $uuid, name: $name, datePublished: $datePublished, description: $description, imageUrl: $imageUrl, language: $language, genres: $genres, authorName: $authorName, audioUrl: $audioUrl, seasonNumber: $seasonNumber, episodeNumber: $episodeNumber, podcastSeries: $podcastSeries)';
+    return 'PodcastEpisode(uuid: $uuid, name: $name, datePublished: $datePublished, description: $description, imageUrl: $imageUrl, language: $language, genres: $genres, authorName: $authorName, audioUrl: $audioUrl, seasonNumber: $seasonNumber, episodeNumber: $episodeNumber, duration: $duration, podcastSeries: $podcastSeries)';
   }
 
   @override
@@ -335,6 +351,8 @@ class _$_PodcastEpisode implements _PodcastEpisode {
                 other.seasonNumber == seasonNumber) &&
             (identical(other.episodeNumber, episodeNumber) ||
                 other.episodeNumber == episodeNumber) &&
+            (identical(other.duration, duration) ||
+                other.duration == duration) &&
             (identical(other.podcastSeries, podcastSeries) ||
                 other.podcastSeries == podcastSeries));
   }
@@ -354,6 +372,7 @@ class _$_PodcastEpisode implements _PodcastEpisode {
       audioUrl,
       seasonNumber,
       episodeNumber,
+      duration,
       podcastSeries);
 
   @JsonKey(ignore: true)
@@ -376,13 +395,14 @@ abstract class _PodcastEpisode implements PodcastEpisode {
       required final String name,
       required final int datePublished,
       final String? description,
-      required final String imageUrl,
+      final String? imageUrl,
       final String? language,
       final List<String>? genres,
       final String? authorName,
       required final String audioUrl,
       final int? seasonNumber,
       final int? episodeNumber,
+      required final int duration,
       required final PodcastSeries podcastSeries}) = _$_PodcastEpisode;
 
   factory _PodcastEpisode.fromJson(Map<String, dynamic> json) =
@@ -397,7 +417,7 @@ abstract class _PodcastEpisode implements PodcastEpisode {
   @override
   String? get description;
   @override
-  String get imageUrl;
+  String? get imageUrl;
   @override
   String? get language;
   @override
@@ -410,6 +430,8 @@ abstract class _PodcastEpisode implements PodcastEpisode {
   int? get seasonNumber;
   @override
   int? get episodeNumber;
+  @override
+  int get duration;
   @override
   PodcastSeries get podcastSeries;
   @override

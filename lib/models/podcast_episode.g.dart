@@ -12,7 +12,7 @@ _$_PodcastEpisode _$$_PodcastEpisodeFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       datePublished: json['datePublished'] as int,
       description: json['description'] as String?,
-      imageUrl: json['imageUrl'] as String,
+      imageUrl: json['imageUrl'] as String?,
       language: json['language'] as String?,
       genres:
           (json['genres'] as List<dynamic>?)?.map((e) => e as String).toList(),
@@ -20,6 +20,7 @@ _$_PodcastEpisode _$$_PodcastEpisodeFromJson(Map<String, dynamic> json) =>
       audioUrl: json['audioUrl'] as String,
       seasonNumber: json['seasonNumber'] as int?,
       episodeNumber: json['episodeNumber'] as int?,
+      duration: json['duration'] as int,
       podcastSeries:
           PodcastSeries.fromJson(json['podcastSeries'] as Map<String, dynamic>),
     );
@@ -37,5 +38,6 @@ Map<String, dynamic> _$$_PodcastEpisodeToJson(_$_PodcastEpisode instance) =>
       'audioUrl': instance.audioUrl,
       'seasonNumber': instance.seasonNumber,
       'episodeNumber': instance.episodeNumber,
+      'duration': instance.duration,
       'podcastSeries': instance.podcastSeries,
     };

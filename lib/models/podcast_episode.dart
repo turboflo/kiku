@@ -12,13 +12,14 @@ class PodcastEpisode with _$PodcastEpisode {
     required String name,
     required int datePublished,
     String? description,
-    required String imageUrl,
+    String? imageUrl,
     String? language,
     List<String>? genres,
     String? authorName,
     required String audioUrl,
     int? seasonNumber,
     int? episodeNumber,
+    required int duration,
     required PodcastSeries podcastSeries,
   }) = _PodcastEpisode;
 
