@@ -10,9 +10,9 @@ _$_PodcastSeries _$$_PodcastSeriesFromJson(Map<String, dynamic> json) =>
     _$_PodcastSeries(
       uuid: json['uuid'] as String,
       name: json['name'] as String,
-      datePublished: json['datePublished'] as int,
+      datePublished: json['datePublished'] as int?,
       description: json['description'] as String?,
-      imageUrl: json['imageUrl'] as String,
+      imageUrl: json['imageUrl'] as String?,
       language: json['language'] as String,
       genres:
           (json['genres'] as List<dynamic>?)?.map((e) => e as String).toList(),

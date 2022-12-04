@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kiku/models/podcast_episode.dart';
 import 'package:kiku/models/podcast_series.dart';
 
+const String noImageUrl = 'https://via.placeholder.com/200x200.png?text=kiku';
+
 class KikuListTile extends StatelessWidget {
   const KikuListTile({
     super.key,
@@ -14,17 +16,18 @@ class KikuListTile extends StatelessWidget {
 
   factory KikuListTile.fromPodcastEpisode(PodcastEpisode podcastEpisode) {
     return KikuListTile(
-      imageUrl:
-          podcastEpisode.imageUrl ?? podcastEpisode.podcastSeries.imageUrl,
+      imageUrl: podcastEpisode.imageUrl ??
+          podcastEpisode.podcastSeries.imageUrl ??
+          noImageUrl,
       title: podcastEpisode.name,
       additionalInfo:
-          '${podcastEpisode.duration} - ${podcastEpisode.podcastSeries.name}',
+          '${podcastEpisode.printDuration()} - ${podcastEpisode.podcastSeries.name}',
     );
   }
 
   factory KikuListTile.fromPodcastSeries(PodcastSeries podcastSeries) {
     return KikuListTile(
-      imageUrl: podcastSeries.imageUrl,
+      imageUrl: podcastSeries.imageUrl ?? noImageUrl,
       title: podcastSeries.name,
       additionalInfo: podcastSeries.authorName ?? '',
     );

@@ -7,6 +7,7 @@ part 'podcast_episode.g.dart';
 
 @freezed
 class PodcastEpisode with _$PodcastEpisode {
+  const PodcastEpisode._();
   const factory PodcastEpisode({
     required String uuid,
     required String name,
@@ -25,4 +26,12 @@ class PodcastEpisode with _$PodcastEpisode {
 
   factory PodcastEpisode.fromJson(Map<String, Object?> json) =>
       _$PodcastEpisodeFromJson(json);
+
+  String printDuration() {
+    Duration duration = Duration(seconds: this.duration);
+    if (duration.inHours == 0) {
+      return "${duration.inMinutes.remainder(60)}min";
+    }
+    return "${(duration.inHours)}h, ${duration.inMinutes.remainder(60)}min";
+  }
 }

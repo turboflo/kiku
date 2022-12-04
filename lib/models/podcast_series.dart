@@ -9,9 +9,9 @@ class PodcastSeries with _$PodcastSeries {
   const factory PodcastSeries({
     required String uuid,
     required String name,
-    required int datePublished,
+    int? datePublished,
     String? description,
-    required String imageUrl,
+    String? imageUrl,
     required String language,
     List<String>? genres,
     String? authorName,

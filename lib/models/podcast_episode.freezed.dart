@@ -267,7 +267,7 @@ class __$$_PodcastEpisodeCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_PodcastEpisode implements _PodcastEpisode {
+class _$_PodcastEpisode extends _PodcastEpisode {
   const _$_PodcastEpisode(
       {required this.uuid,
       required this.name,
@@ -282,7 +282,8 @@ class _$_PodcastEpisode implements _PodcastEpisode {
       this.episodeNumber,
       required this.duration,
       required this.podcastSeries})
-      : _genres = genres;
+      : _genres = genres,
+        super._();
 
   factory _$_PodcastEpisode.fromJson(Map<String, dynamic> json) =>
       _$$_PodcastEpisodeFromJson(json);
@@ -389,7 +390,7 @@ class _$_PodcastEpisode implements _PodcastEpisode {
   }
 }
 
-abstract class _PodcastEpisode implements PodcastEpisode {
+abstract class _PodcastEpisode extends PodcastEpisode {
   const factory _PodcastEpisode(
       {required final String uuid,
       required final String name,
@@ -404,6 +405,7 @@ abstract class _PodcastEpisode implements PodcastEpisode {
       final int? episodeNumber,
       required final int duration,
       required final PodcastSeries podcastSeries}) = _$_PodcastEpisode;
+  const _PodcastEpisode._() : super._();
 
   factory _PodcastEpisode.fromJson(Map<String, dynamic> json) =
       _$_PodcastEpisode.fromJson;

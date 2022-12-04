@@ -22,9 +22,9 @@ PodcastSeries _$PodcastSeriesFromJson(Map<String, dynamic> json) {
 mixin _$PodcastSeries {
   String get uuid => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  int get datePublished => throw _privateConstructorUsedError;
+  int? get datePublished => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
-  String get imageUrl => throw _privateConstructorUsedError;
+  String? get imageUrl => throw _privateConstructorUsedError;
   String get language => throw _privateConstructorUsedError;
   List<String>? get genres => throw _privateConstructorUsedError;
   String? get authorName => throw _privateConstructorUsedError;
@@ -44,9 +44,9 @@ abstract class $PodcastSeriesCopyWith<$Res> {
   $Res call(
       {String uuid,
       String name,
-      int datePublished,
+      int? datePublished,
       String? description,
-      String imageUrl,
+      String? imageUrl,
       String language,
       List<String>? genres,
       String? authorName});
@@ -67,9 +67,9 @@ class _$PodcastSeriesCopyWithImpl<$Res, $Val extends PodcastSeries>
   $Res call({
     Object? uuid = null,
     Object? name = null,
-    Object? datePublished = null,
+    Object? datePublished = freezed,
     Object? description = freezed,
-    Object? imageUrl = null,
+    Object? imageUrl = freezed,
     Object? language = null,
     Object? genres = freezed,
     Object? authorName = freezed,
@@ -83,18 +83,18 @@ class _$PodcastSeriesCopyWithImpl<$Res, $Val extends PodcastSeries>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      datePublished: null == datePublished
+      datePublished: freezed == datePublished
           ? _value.datePublished
           : datePublished // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: null == imageUrl
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -122,9 +122,9 @@ abstract class _$$_PodcastSeriesCopyWith<$Res>
   $Res call(
       {String uuid,
       String name,
-      int datePublished,
+      int? datePublished,
       String? description,
-      String imageUrl,
+      String? imageUrl,
       String language,
       List<String>? genres,
       String? authorName});
@@ -143,9 +143,9 @@ class __$$_PodcastSeriesCopyWithImpl<$Res>
   $Res call({
     Object? uuid = null,
     Object? name = null,
-    Object? datePublished = null,
+    Object? datePublished = freezed,
     Object? description = freezed,
-    Object? imageUrl = null,
+    Object? imageUrl = freezed,
     Object? language = null,
     Object? genres = freezed,
     Object? authorName = freezed,
@@ -159,18 +159,18 @@ class __$$_PodcastSeriesCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String,
-      datePublished: null == datePublished
+      datePublished: freezed == datePublished
           ? _value.datePublished
           : datePublished // ignore: cast_nullable_to_non_nullable
-              as int,
+              as int?,
       description: freezed == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String?,
-      imageUrl: null == imageUrl
+      imageUrl: freezed == imageUrl
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       language: null == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
@@ -193,9 +193,9 @@ class _$_PodcastSeries implements _PodcastSeries {
   const _$_PodcastSeries(
       {required this.uuid,
       required this.name,
-      required this.datePublished,
+      this.datePublished,
       this.description,
-      required this.imageUrl,
+      this.imageUrl,
       required this.language,
       final List<String>? genres,
       this.authorName})
@@ -209,11 +209,11 @@ class _$_PodcastSeries implements _PodcastSeries {
   @override
   final String name;
   @override
-  final int datePublished;
+  final int? datePublished;
   @override
   final String? description;
   @override
-  final String imageUrl;
+  final String? imageUrl;
   @override
   final String language;
   final List<String>? _genres;
@@ -285,9 +285,9 @@ abstract class _PodcastSeries implements PodcastSeries {
   const factory _PodcastSeries(
       {required final String uuid,
       required final String name,
-      required final int datePublished,
+      final int? datePublished,
       final String? description,
-      required final String imageUrl,
+      final String? imageUrl,
       required final String language,
       final List<String>? genres,
       final String? authorName}) = _$_PodcastSeries;
@@ -300,11 +300,11 @@ abstract class _PodcastSeries implements PodcastSeries {
   @override
   String get name;
   @override
-  int get datePublished;
+  int? get datePublished;
   @override
   String? get description;
   @override
-  String get imageUrl;
+  String? get imageUrl;
   @override
   String get language;
   @override
