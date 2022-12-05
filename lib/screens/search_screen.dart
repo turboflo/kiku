@@ -42,6 +42,7 @@ class _SearchScreenState extends State<SearchScreen> {
           ),
           ToggleSwitch(
             minWidth: double.infinity,
+            inactiveBgColor: Colors.grey.shade300,
             initialLabelIndex: showEpisodes ? 0 : 1,
             totalSwitches: 2,
             labels: const ['Episodes', 'Series'],
