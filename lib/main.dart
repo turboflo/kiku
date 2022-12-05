@@ -1,10 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart' as auth;
+import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:kiku/screens/home_screen.dart';
 import 'package:kiku/screens/search_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const KikuApp());
 }
 
@@ -14,45 +22,40 @@ class KikuApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final providers = [EmailAuthProvider()];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'kiku',
       theme: ThemeData(primarySwatch: Colors.purple),
-      home: const HomePage(),
+      initialRoute:
+          auth.FirebaseAuth.instance.currentUser == null ? '/sign-in' : '/home',
+      routes: {
+        '/sign-in': (context) {
+          return SignInScreen(
+            providers: providers,
+            actions: [
+              AuthStateChangeAction<SignedIn>((context, state) {
+                Navigator.pushReplacementNamed(context, '/home');
+              }),
+            ],
+          );
+        },
+        '/home': (context) {
+          return const HomeScreen();
+        },
+        '/profile': (context) {
+          return ProfileScreen(
+            appBar: AppBar(title: const Text('Profile')),
+            providers: providers,
+            actions: [
+              SignedOutAction((context) {
+                Navigator.popUntil(context, ModalRoute.withName('/home'));
+                Navigator.pushReplacementNamed(context, '/sign-in');
+              }),
+            ],
+          );
+        }
+      },
     );
-  }
-}
-
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  List<Widget> screens = [const SearchScreen(), Container()];
-
-  void _onItemTapped(int newIndex) => setState(() => _selectedIndex = newIndex);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.magnifyingGlass),
-              label: 'Search',
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.layerGroup),
-              label: 'Your Library',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-        ),
-        body: screens[_selectedIndex]);
   }
 }
