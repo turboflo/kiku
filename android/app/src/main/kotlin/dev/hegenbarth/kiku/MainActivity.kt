@@ -1,4 +1,4 @@
-package com.example.kiku
+package dev.hegenbarth.kiku
 
 import io.flutter.embedding.android.FlutterActivity
 

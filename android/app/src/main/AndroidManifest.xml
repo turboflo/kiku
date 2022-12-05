@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.kiku">
+    package="dev.hegenbarth.kiku">
    <application
         android:label="kiku"
         android:name="${applicationName}"
