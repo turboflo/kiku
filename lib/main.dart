@@ -1,9 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kiku/screens/home_screen.dart';
-import 'package:kiku/screens/search_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -22,7 +20,7 @@ class KikuApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final providers = [EmailAuthProvider()];
+    final List<AuthProvider> providers = [EmailAuthProvider()];
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'kiku',
