@@ -12,7 +12,7 @@ class PodcastSeries with _$PodcastSeries {
     int? datePublished,
     String? description,
     String? imageUrl,
-    required String language,
+    String? language,
     List<String>? genres,
     String? authorName,
   }) = _PodcastSeries;

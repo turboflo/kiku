@@ -17,7 +17,7 @@ _$_PodcastEpisode _$$_PodcastEpisodeFromJson(Map<String, dynamic> json) =>
       genres:
           (json['genres'] as List<dynamic>?)?.map((e) => e as String).toList(),
       authorName: json['authorName'] as String?,
-      audioUrl: json['audioUrl'] as String,
+      audioUrl: json['audioUrl'] as String?,
       seasonNumber: json['seasonNumber'] as int?,
       episodeNumber: json['episodeNumber'] as int?,
       duration: json['duration'] as int,

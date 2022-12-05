@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kiku/models/podcast_episode.dart';
 import 'package:kiku/models/podcast_series.dart';
 
-const String noImageUrl = 'https://via.placeholder.com/200x200.png?text=kiku';
+const String noImageUrl =
+    'https://via.placeholder.com/200x200.png?text=Podcast';
 
 class KikuListTile extends StatelessWidget {
   const KikuListTile({

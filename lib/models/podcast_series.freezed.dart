@@ -25,7 +25,7 @@ mixin _$PodcastSeries {
   int? get datePublished => throw _privateConstructorUsedError;
   String? get description => throw _privateConstructorUsedError;
   String? get imageUrl => throw _privateConstructorUsedError;
-  String get language => throw _privateConstructorUsedError;
+  String? get language => throw _privateConstructorUsedError;
   List<String>? get genres => throw _privateConstructorUsedError;
   String? get authorName => throw _privateConstructorUsedError;
 
@@ -47,7 +47,7 @@ abstract class $PodcastSeriesCopyWith<$Res> {
       int? datePublished,
       String? description,
       String? imageUrl,
-      String language,
+      String? language,
       List<String>? genres,
       String? authorName});
 }
@@ -70,7 +70,7 @@ class _$PodcastSeriesCopyWithImpl<$Res, $Val extends PodcastSeries>
     Object? datePublished = freezed,
     Object? description = freezed,
     Object? imageUrl = freezed,
-    Object? language = null,
+    Object? language = freezed,
     Object? genres = freezed,
     Object? authorName = freezed,
   }) {
@@ -95,10 +95,10 @@ class _$PodcastSeriesCopyWithImpl<$Res, $Val extends PodcastSeries>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      language: null == language
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genres: freezed == genres
           ? _value.genres
           : genres // ignore: cast_nullable_to_non_nullable
@@ -125,7 +125,7 @@ abstract class _$$_PodcastSeriesCopyWith<$Res>
       int? datePublished,
       String? description,
       String? imageUrl,
-      String language,
+      String? language,
       List<String>? genres,
       String? authorName});
 }
@@ -146,7 +146,7 @@ class __$$_PodcastSeriesCopyWithImpl<$Res>
     Object? datePublished = freezed,
     Object? description = freezed,
     Object? imageUrl = freezed,
-    Object? language = null,
+    Object? language = freezed,
     Object? genres = freezed,
     Object? authorName = freezed,
   }) {
@@ -171,10 +171,10 @@ class __$$_PodcastSeriesCopyWithImpl<$Res>
           ? _value.imageUrl
           : imageUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      language: null == language
+      language: freezed == language
           ? _value.language
           : language // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       genres: freezed == genres
           ? _value._genres
           : genres // ignore: cast_nullable_to_non_nullable
@@ -196,7 +196,7 @@ class _$_PodcastSeries implements _PodcastSeries {
       this.datePublished,
       this.description,
       this.imageUrl,
-      required this.language,
+      this.language,
       final List<String>? genres,
       this.authorName})
       : _genres = genres;
@@ -215,7 +215,7 @@ class _$_PodcastSeries implements _PodcastSeries {
   @override
   final String? imageUrl;
   @override
-  final String language;
+  final String? language;
   final List<String>? _genres;
   @override
   List<String>? get genres {
@@ -288,7 +288,7 @@ abstract class _PodcastSeries implements PodcastSeries {
       final int? datePublished,
       final String? description,
       final String? imageUrl,
-      required final String language,
+      final String? language,
       final List<String>? genres,
       final String? authorName}) = _$_PodcastSeries;
 
@@ -306,7 +306,7 @@ abstract class _PodcastSeries implements PodcastSeries {
   @override
   String? get imageUrl;
   @override
-  String get language;
+  String? get language;
   @override
   List<String>? get genres;
   @override

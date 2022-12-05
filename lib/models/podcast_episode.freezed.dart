@@ -28,7 +28,7 @@ mixin _$PodcastEpisode {
   String? get language => throw _privateConstructorUsedError;
   List<String>? get genres => throw _privateConstructorUsedError;
   String? get authorName => throw _privateConstructorUsedError;
-  String get audioUrl => throw _privateConstructorUsedError;
+  String? get audioUrl => throw _privateConstructorUsedError;
   int? get seasonNumber => throw _privateConstructorUsedError;
   int? get episodeNumber => throw _privateConstructorUsedError;
   int get duration => throw _privateConstructorUsedError;
@@ -55,7 +55,7 @@ abstract class $PodcastEpisodeCopyWith<$Res> {
       String? language,
       List<String>? genres,
       String? authorName,
-      String audioUrl,
+      String? audioUrl,
       int? seasonNumber,
       int? episodeNumber,
       int duration,
@@ -85,7 +85,7 @@ class _$PodcastEpisodeCopyWithImpl<$Res, $Val extends PodcastEpisode>
     Object? language = freezed,
     Object? genres = freezed,
     Object? authorName = freezed,
-    Object? audioUrl = null,
+    Object? audioUrl = freezed,
     Object? seasonNumber = freezed,
     Object? episodeNumber = freezed,
     Object? duration = null,
@@ -124,10 +124,10 @@ class _$PodcastEpisodeCopyWithImpl<$Res, $Val extends PodcastEpisode>
           ? _value.authorName
           : authorName // ignore: cast_nullable_to_non_nullable
               as String?,
-      audioUrl: null == audioUrl
+      audioUrl: freezed == audioUrl
           ? _value.audioUrl
           : audioUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       seasonNumber: freezed == seasonNumber
           ? _value.seasonNumber
           : seasonNumber // ignore: cast_nullable_to_non_nullable
@@ -173,7 +173,7 @@ abstract class _$$_PodcastEpisodeCopyWith<$Res>
       String? language,
       List<String>? genres,
       String? authorName,
-      String audioUrl,
+      String? audioUrl,
       int? seasonNumber,
       int? episodeNumber,
       int duration,
@@ -202,7 +202,7 @@ class __$$_PodcastEpisodeCopyWithImpl<$Res>
     Object? language = freezed,
     Object? genres = freezed,
     Object? authorName = freezed,
-    Object? audioUrl = null,
+    Object? audioUrl = freezed,
     Object? seasonNumber = freezed,
     Object? episodeNumber = freezed,
     Object? duration = null,
@@ -241,10 +241,10 @@ class __$$_PodcastEpisodeCopyWithImpl<$Res>
           ? _value.authorName
           : authorName // ignore: cast_nullable_to_non_nullable
               as String?,
-      audioUrl: null == audioUrl
+      audioUrl: freezed == audioUrl
           ? _value.audioUrl
           : audioUrl // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       seasonNumber: freezed == seasonNumber
           ? _value.seasonNumber
           : seasonNumber // ignore: cast_nullable_to_non_nullable
@@ -277,7 +277,7 @@ class _$_PodcastEpisode extends _PodcastEpisode {
       this.language,
       final List<String>? genres,
       this.authorName,
-      required this.audioUrl,
+      this.audioUrl,
       this.seasonNumber,
       this.episodeNumber,
       required this.duration,
@@ -313,7 +313,7 @@ class _$_PodcastEpisode extends _PodcastEpisode {
   @override
   final String? authorName;
   @override
-  final String audioUrl;
+  final String? audioUrl;
   @override
   final int? seasonNumber;
   @override
@@ -400,7 +400,7 @@ abstract class _PodcastEpisode extends PodcastEpisode {
       final String? language,
       final List<String>? genres,
       final String? authorName,
-      required final String audioUrl,
+      final String? audioUrl,
       final int? seasonNumber,
       final int? episodeNumber,
       required final int duration,
@@ -427,7 +427,7 @@ abstract class _PodcastEpisode extends PodcastEpisode {
   @override
   String? get authorName;
   @override
-  String get audioUrl;
+  String? get audioUrl;
   @override
   int? get seasonNumber;
   @override

@@ -13,7 +13,7 @@ _$_PodcastSeries _$$_PodcastSeriesFromJson(Map<String, dynamic> json) =>
       datePublished: json['datePublished'] as int?,
       description: json['description'] as String?,
       imageUrl: json['imageUrl'] as String?,
-      language: json['language'] as String,
+      language: json['language'] as String?,
       genres:
           (json['genres'] as List<dynamic>?)?.map((e) => e as String).toList(),
       authorName: json['authorName'] as String?,

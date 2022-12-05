@@ -17,7 +17,7 @@ class PodcastEpisode with _$PodcastEpisode {
     String? language,
     List<String>? genres,
     String? authorName,
-    required String audioUrl,
+    String? audioUrl,
     int? seasonNumber,
     int? episodeNumber,
     required int duration,
