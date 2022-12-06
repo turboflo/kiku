@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kiku/services/firestore_database.dart';
+import 'package:kiku/services/provider.dart';
 import 'package:kiku/widgets/kiku_list_tile.dart';
+import 'package:kiku/widgets/kiku_loader.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:loading_indicator/loading_indicator.dart';
 
@@ -8,60 +12,66 @@ import '../models/podcast_series.dart';
 import '../services/taddy.dart';
 import '../widgets/search_bar.dart';
 
-class SearchScreen extends StatefulWidget {
+class SearchScreen extends ConsumerStatefulWidget {
   const SearchScreen({super.key});
 
   @override
-  State<SearchScreen> createState() => _SearchScreenState();
+  ConsumerState<SearchScreen> createState() => _SearchScreenState();
 }
 
-class _SearchScreenState extends State<SearchScreen> {
+class _SearchScreenState extends ConsumerState<SearchScreen> {
   bool isLoading = false;
   bool showEpisodes = true;
   bool hasSearched = false;
   List<PodcastEpisode> episodes = [];
   List<PodcastSeries> series = [];
 
+  FirestoreDatabase? _database;
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: [
-          const SizedBox(
-            height: 10,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: SizedBox(
-              width: double.infinity,
-              child: SearchBar(
-                onSearch: _search,
-                onCancel: () {},
+    _database = ref.watch(databaseProvider);
+    return KikuLoader(
+      isLoading: _database == null,
+      child: SafeArea(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: SizedBox(
+                width: double.infinity,
+                child: SearchBar(
+                  onSearch: _search,
+                  onCancel: () {},
+                ),
               ),
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          ToggleSwitch(
-            minWidth: double.infinity,
-            inactiveBgColor: Colors.grey.shade300,
-            initialLabelIndex: showEpisodes ? 0 : 1,
-            totalSwitches: 2,
-            labels: const ['Episodes', 'Series'],
-            onToggle: (index) => setState(() => showEpisodes = index == 0),
-          ),
-          const Divider(),
-          Expanded(
-            child: isLoading
-                ? const Center(
-                    child: LoadingIndicator(
-                      indicatorType: Indicator.ballScale,
-                    ),
-                  )
-                : getSearchResult(),
-          )
-        ],
+            const SizedBox(
+              height: 10,
+            ),
+            ToggleSwitch(
+              minWidth: double.infinity,
+              inactiveBgColor: Colors.grey.shade300,
+              initialLabelIndex: showEpisodes ? 0 : 1,
+              totalSwitches: 2,
+              labels: const ['Episodes', 'Series'],
+              onToggle: (index) => setState(() => showEpisodes = index == 0),
+            ),
+            const Divider(),
+            Expanded(
+              child: isLoading
+                  ? const Center(
+                      child: LoadingIndicator(
+                        indicatorType: Indicator.ballScale,
+                      ),
+                    )
+                  : getSearchResult(),
+            )
+          ],
+        ),
       ),
     );
   }

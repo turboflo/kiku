@@ -13,9 +13,13 @@ class KikuListTile extends StatelessWidget {
     required this.imageUrl,
     required this.title,
     required this.additionalInfo,
+    this.onLike,
   });
 
-  factory KikuListTile.fromPodcastEpisode(PodcastEpisode podcastEpisode) {
+  factory KikuListTile.fromPodcastEpisode(
+    PodcastEpisode podcastEpisode, {
+    Function()? onLike,
+  }) {
     return KikuListTile(
       imageUrl: podcastEpisode.imageUrl ??
           podcastEpisode.podcastSeries.imageUrl ??
@@ -23,14 +27,19 @@ class KikuListTile extends StatelessWidget {
       title: podcastEpisode.name,
       additionalInfo:
           '${podcastEpisode.printDuration()} - ${podcastEpisode.podcastSeries.name}',
+      onLike: onLike,
     );
   }
 
-  factory KikuListTile.fromPodcastSeries(PodcastSeries podcastSeries) {
+  factory KikuListTile.fromPodcastSeries(
+    PodcastSeries podcastSeries, {
+    Function()? onLike,
+  }) {
     return KikuListTile(
       imageUrl: podcastSeries.imageUrl ?? noImageUrl,
       title: podcastSeries.name,
       additionalInfo: podcastSeries.authorName ?? '',
+      onLike: onLike,
     );
   }
 
@@ -38,6 +47,7 @@ class KikuListTile extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String additionalInfo;
+  final Function()? onLike;
 
   @override
   Widget build(BuildContext context) {
@@ -87,9 +97,12 @@ class KikuListTile extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          const FaIcon(
-            FontAwesomeIcons.heart,
-            color: Colors.grey,
+          IconButton(
+            onPressed: onLike,
+            icon: const FaIcon(
+              FontAwesomeIcons.heart,
+              color: Colors.grey,
+            ),
           ),
           const SizedBox(
             width: 10,
