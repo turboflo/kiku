@@ -1,25 +1,25 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:kiku/models/podcast_episode.dart';
 import 'package:kiku/models/podcast_series.dart';
+import 'package:kiku/services/provider.dart';
 
 const String noImageUrl =
     'https://via.placeholder.com/200x200.png?text=Podcast';
 
-class KikuListTile extends StatelessWidget {
+class KikuListTile extends ConsumerWidget {
   const KikuListTile({
     super.key,
     required this.imageUrl,
     required this.title,
     required this.additionalInfo,
-    this.onLike,
+    this.podcastEpisode,
+    this.podcastSeries,
   });
 
-  factory KikuListTile.fromPodcastEpisode(
-    PodcastEpisode podcastEpisode, {
-    Function()? onLike,
-  }) {
+  factory KikuListTile.fromPodcastEpisode(PodcastEpisode podcastEpisode) {
     return KikuListTile(
       imageUrl: podcastEpisode.imageUrl ??
           podcastEpisode.podcastSeries.imageUrl ??
@@ -27,30 +27,88 @@ class KikuListTile extends StatelessWidget {
       title: podcastEpisode.name,
       additionalInfo:
           '${podcastEpisode.printDuration()} - ${podcastEpisode.podcastSeries.name}',
-      onLike: onLike,
+      podcastEpisode: podcastEpisode,
     );
   }
 
-  factory KikuListTile.fromPodcastSeries(
-    PodcastSeries podcastSeries, {
-    Function()? onLike,
-  }) {
+  factory KikuListTile.fromPodcastSeries(PodcastSeries podcastSeries) {
     return KikuListTile(
       imageUrl: podcastSeries.imageUrl ?? noImageUrl,
       title: podcastSeries.name,
       additionalInfo: podcastSeries.authorName ?? '',
-      onLike: onLike,
+      podcastSeries: podcastSeries,
     );
   }
 
-  // final PodcastEpisode podcastEpisode;
   final String imageUrl;
   final String title;
   final String additionalInfo;
-  final Function()? onLike;
+  final PodcastEpisode? podcastEpisode;
+  final PodcastSeries? podcastSeries;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final _database = ref.watch(databaseProvider);
+    final _userData = ref.watch(userDataProvider).value;
+    bool isLiked = false;
+
+    void addLike() {
+      if (_database != null && _userData != null) {
+        if (podcastSeries != null) {
+          _database.setPodcastSeries(podcastSeries!);
+          final updatedUserData = _userData.copyWith(
+            likedPodcastSeries: [
+              ..._userData.likedPodcastSeries,
+              podcastSeries!.uuid,
+            ],
+          );
+          _database.setUserData(updatedUserData);
+        }
+        if (podcastEpisode != null) {
+          _database.setPodcastEpisode(podcastEpisode!);
+          final updatedUserData = _userData.copyWith(
+            likedPodcastSeries: [
+              ..._userData.likedPodcastEpisodes,
+              podcastEpisode!.uuid,
+            ],
+          );
+          _database.setUserData(updatedUserData);
+        }
+      }
+    }
+
+    void removeLike() {
+      if (_database != null && _userData != null) {
+        if (podcastSeries != null) {
+          List<String> likedPodcastSeries =
+              _userData.likedPodcastSeries.toList();
+          likedPodcastSeries.remove(podcastSeries!.uuid);
+          final updatedUserData = _userData.copyWith(
+            likedPodcastSeries: likedPodcastSeries,
+          );
+          _database.setUserData(updatedUserData);
+        }
+        if (podcastEpisode != null) {
+          List<String> likedPodcastEpisodes =
+              _userData.likedPodcastEpisodes.toList();
+          likedPodcastEpisodes.remove(podcastSeries!.uuid);
+          final updatedUserData = _userData.copyWith(
+            likedPodcastEpisodes: likedPodcastEpisodes,
+          );
+          _database.setUserData(updatedUserData);
+        }
+      }
+    }
+
+    if (_userData != null) {
+      if (podcastSeries != null) {
+        isLiked = _userData.likedPodcastSeries.contains(podcastSeries!.uuid);
+      }
+      if (podcastEpisode != null) {
+        isLiked = _userData.likedPodcastEpisodes.contains(podcastEpisode!.uuid);
+      }
+    }
+
     return Container(
       decoration: BoxDecoration(
         border: Border(
@@ -98,10 +156,10 @@ class KikuListTile extends StatelessWidget {
             width: 10,
           ),
           IconButton(
-            onPressed: onLike,
-            icon: const FaIcon(
-              FontAwesomeIcons.heart,
-              color: Colors.grey,
+            onPressed: isLiked ? removeLike : addLike,
+            icon: FaIcon(
+              isLiked ? FontAwesomeIcons.solidHeart : FontAwesomeIcons.heart,
+              color: isLiked ? Theme.of(context).primaryColor : Colors.grey,
             ),
           ),
           const SizedBox(

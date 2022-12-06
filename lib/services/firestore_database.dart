@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:kiku/models/podcast_episode.dart';
 
 import '../models/podcast_series.dart';
 import '../models/user_data.dart';
@@ -21,6 +22,14 @@ class FirestoreDatabase {
         toFirestore: (podcastSeries, _) => podcastSeries.toJson(),
       );
 
+  final _podcastEpisodeRef = FirebaseFirestore.instance
+      .collection('podcast-episode')
+      .withConverter<PodcastEpisode>(
+        fromFirestore: (snapshots, _) =>
+            PodcastEpisode.fromJson(snapshots.data()!),
+        toFirestore: (podcastEpisode, _) => podcastEpisode.toJson(),
+      );
+
   FirestoreDatabase({required this.uid});
 
   Future<void> setUserData(UserData userData) async {
@@ -34,6 +43,12 @@ class FirestoreDatabase {
   Future<void> setInitialUserData() =>
       _userDataRef.doc(uid).set(UserData.fromUid(uid), SetOptions(merge: true));
 
+  Stream<UserData?> streamUserData() =>
+      _userDataRef.doc(uid).snapshots().map((snapshot) => snapshot.data());
+
   Future<void> setPodcastSeries(PodcastSeries podcastSeries) =>
       _podcastSeriesRef.doc(podcastSeries.uuid).set(podcastSeries);
+
+  Future<void> setPodcastEpisode(PodcastEpisode podcastEpisode) =>
+      _podcastEpisodeRef.doc(podcastEpisode.uuid).set(podcastEpisode);
 }

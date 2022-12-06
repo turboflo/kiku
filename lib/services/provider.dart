@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kiku/models/user_data.dart';
 
 import 'firestore_database.dart';
 
@@ -11,9 +12,16 @@ final authStateChangesProvider = StreamProvider<User?>(
 
 final databaseProvider = Provider<FirestoreDatabase?>((ref) {
   final auth = ref.watch(authStateChangesProvider);
-  print(auth.value?.uid);
   if (auth.value?.uid != null) {
     return FirestoreDatabase(uid: auth.value!.uid);
   }
   return null;
+});
+
+final userDataProvider = StreamProvider<UserData?>((ref) {
+  final database = ref.watch(databaseProvider);
+  if (database != null) {
+    return database.streamUserData();
+  }
+  return const Stream<UserData>.empty();
 });

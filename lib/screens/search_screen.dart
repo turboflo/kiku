@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kiku/models/user_data.dart';
 import 'package:kiku/services/firestore_database.dart';
 import 'package:kiku/services/provider.dart';
 import 'package:kiku/widgets/kiku_list_tile.dart';
@@ -27,10 +28,12 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
   List<PodcastSeries> series = [];
 
   FirestoreDatabase? _database;
+  UserData? _userData;
 
   @override
   Widget build(BuildContext context) {
     _database = ref.watch(databaseProvider);
+    _userData = ref.watch(userDataProvider).value;
     return KikuLoader(
       isLoading: _database == null,
       child: SafeArea(
@@ -90,10 +93,15 @@ class _SearchScreenState extends ConsumerState<SearchScreen> {
       return const Center(child: Text('No Series found :('));
     }
     return ListView.builder(
-        itemCount: showEpisodes ? episodes.length : series.length,
-        itemBuilder: (context, index) => showEpisodes
-            ? KikuListTile.fromPodcastEpisode(episodes[index])
-            : KikuListTile.fromPodcastSeries(series[index]));
+      itemCount: showEpisodes ? episodes.length : series.length,
+      itemBuilder: (context, index) => showEpisodes
+          ? KikuListTile.fromPodcastEpisode(
+              episodes[index],
+            )
+          : KikuListTile.fromPodcastSeries(
+              series[index],
+            ),
+    );
   }
 
   Future<void> _search(String searchTerm) async {
